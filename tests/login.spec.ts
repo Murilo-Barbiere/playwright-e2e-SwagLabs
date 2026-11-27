@@ -11,7 +11,25 @@ test.describe("testar a pagina de login", () => {
         await pageLogin.sucessoLogin();
     })
 
-    test("login falha, user errado senha certa", async ({ page }) => {
+    test("login falha user errado senha certa", async ({ page }) => {
+        const pageLogin = new PageLogin(page);
+ 
+        await pageLogin.visitar();
+        await pageLogin.login("errado", "secret_sauce");
+
+        await pageLogin.falhaLogin();
+    })
+
+    test("login falha user certo senha errada", async ({ page }) => {
+        const pageLogin = new PageLogin(page);
+ 
+        await pageLogin.visitar();
+        await pageLogin.login("standard_user", "errado");
+
+        await pageLogin.falhaLogin();
+    })
+
+        test("login falha user bloqueado", async ({ page }) => {
         const pageLogin = new PageLogin(page);
  
         await pageLogin.visitar();
